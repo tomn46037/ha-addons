@@ -1,0 +1,16 @@
+
+{
+    "device": "/dev/null",
+    "baudrate": 9600,
+    "mqtt_broker": "MQTT_DOMAIN_NAME",
+    "mqtt_port": 1883,
+    "mqtt_username": "username",
+    "mqtt_pw": "password",
+    "mqtt_config": "homeassistant/device_tracker/gpsd/config",
+    "mqtt_state": "gpsd/state",
+    "mqtt_attr": "gpsd/attribute",
+    "gpsd_host": "GPS_HOST",
+    "debug": "DEBUG",
+    "summary_interval": 120,
+    "publish_interval": 10
+}

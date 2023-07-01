@@ -5,7 +5,7 @@ import paho.mqtt.client as mqtt
 from gpsdclient import GPSDClient
 
 # Read the config options from the JSON file
-with open("/data/options.json", "r") as jsonfile:
+with open("./options.json", "r") as jsonfile:
     data = json.load(jsonfile)
     
 # Replace the variables with the values from the config options
@@ -19,6 +19,7 @@ mqtt_pw = data.get("mqtt_pw") or ""
 mqtt_config = data.get("mqtt_config", "homeassistant/device_tracker/gpsd/config")
 mqtt_state = data.get("mqtt_state", "gpsd/state")
 mqtt_attr = data.get("mqtt_attr", "gpsd/attribute")
+gpsd_host = data.get("gpsd_host")
 debug = data.get("debug", False)
 # Variables used to publish updates to the
 summary_interval = data.get("summary_interval") or 120 # Interval in seconds
@@ -95,7 +96,7 @@ logger.debug(f"Published {json_config} discovery message to topic: {mqtt_attr}")
 while True:
     client.loop(timeout=1) # Process MQTT messages with a 1-second timeout
 
-    with GPSDClient(host="127.0.0.1") as gps_client:
+    with GPSDClient(host=gpsd_host) as gps_client:
         for raw_result in gps_client.json_stream():
             result = json.loads(raw_result)
             if result.get("class") == "TPV":
